@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.contrib.auth.models import User
 
 from django.db import models
 
@@ -23,6 +24,7 @@ class TodoList(models.Model):  # Todolist able name that inherits models.Model
     created = models.DateField(default=timezone.now().strftime("%Y-%m-%d"))  # a date
     due_date = models.DateField(default=timezone.now().strftime("%Y-%m-%d"))  # a date
     category = models.ForeignKey(Category, default="general")  # a foreignkey
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default="0")
 
     class Meta:
         ordering = ["-created"]  # ordering by the created field

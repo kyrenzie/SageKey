@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .models import TodoList, Category
 
@@ -24,3 +24,18 @@ def index(request):  # the index view
                 todo = TodoList.objects.get(id=int(todo_id))  # getting todo id
                 todo.delete()  # deleting todo
     return render(request, "index.html", {"todos": todos, "categories": categories})
+
+
+def login_view(request):
+    uname = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=uname, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect("/")
+    else:
+        return redirect("/accounts/login")
+
+
+def logout(request):
+    return render(request, "registration/logged_out.html", {})

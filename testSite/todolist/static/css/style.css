@@ -21,6 +21,10 @@ body {
     -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.2);
             box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
+.stateContainer {
+    float: left;
+
+}
 .row {
     display: block;
     padding: 10px;
@@ -66,6 +70,10 @@ h1 {
 }
 .inputContainer.half.last.right {
     border-left: 1px solid #efefef;
+}
+.inputContainer.right {
+    position: center;
+
 }
 input[type="date"], input[type="text"], select {
     height: 100%;

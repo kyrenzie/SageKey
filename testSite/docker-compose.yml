@@ -1,0 +1,31 @@
+version: '3.3'
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    user: root
+    environment:
+      POSTGRES_PASSWORD: kyle
+      POSTGRES_DB: django
+      POSTGRES_USER: django
+    ports:
+      - 5432:5432
+    volumes:
+      - database_data:/var/lib/postgresql/data
+
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    links:
+      - db
+
+volumes:
+  database_data:
+    driver: local

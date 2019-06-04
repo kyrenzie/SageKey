@@ -2,11 +2,12 @@
 from __future__ import unicode_literals
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .models import TodoList, Category
+from .models import TodoList, Category, User
 
 
 def index(request):  # the index view
-    todos = TodoList.objects.all()  # quering all todos with the object manager
+    userId = request.user.id
+    todos = TodoList.objects.filter(author_id=userId)  # quering all todos with the object manager
     categories = Category.objects.all()  # getting all categories with object manager
     if request.method == "POST":  # checking if the request method is a POST
         if "taskAdd" in request.POST:  # checking if there is a request to add a todo
@@ -14,7 +15,8 @@ def index(request):  # the index view
             date = str(request.POST["date"])  # date
             category = request.POST["category_select"]  # category
             content = title + " -- " + date + " " + category  # content
-            Todo = TodoList(title=title, content=content, due_date=date, category=Category.objects.get(name=category))
+            Todo = TodoList(title=title, content=content, due_date=date, category=Category.objects.get(name=category),
+                            author_id=userId)
             Todo.save()  # saving the todo
             return redirect("/")  # reloading the page
 

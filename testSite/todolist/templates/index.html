@@ -41,7 +41,7 @@
                 </div>
                  {% if user.is_authenticated %}
                     <ul class="taskList">
-                        {%if todo.author == user%} <!-- TODO: fix this part -->
+                       <!-- {%if todo.author == user.get%}  TODO: fix this part -->
                         {% for todo in todos %} <!-- django template lang - for loop -->
                             <li class="taskItem">
                             <input type="checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}">
@@ -53,7 +53,7 @@
                         <div class="inputContainer right">
                         <p><a href="{% url 'logout' %}">logout</a></p>
                         </div>
-                        {% endif %}
+                      <!--  {% endif %} -->
                     {% else %}
                      <div class="inputContainer right">
                         <p>You are not logged in</p>
